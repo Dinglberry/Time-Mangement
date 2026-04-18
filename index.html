@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7a8c5" />
+  <title>Glow Up Planner</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar card glass">
+      <div>
+        <p class="eyebrow">Idol Trainee Planner</p>
+        <h1>Glow Up Time Manager</h1>
+        <p id="todayDate" class="muted"></p>
+      </div>
+      <button id="installButton" class="ghost-btn hidden">Install</button>
+    </header>
+
+    <main class="content">
+      <section id="tab-today" class="tab-panel active">
+        <div class="hero card gradient-card">
+          <div>
+            <p class="eyebrow">Today’s focus</p>
+            <h2 id="focusText">Build momentum</h2>
+            <p id="nextRoutine" class="muted">Loading schedule…</p>
+          </div>
+          <div class="ring-wrap">
+            <div class="ring">
+              <span id="completionText">0%</span>
+            </div>
+            <small>routine done</small>
+          </div>
+        </div>
+
+        <div class="mini-grid">
+          <article class="card mini-stat">
+            <p class="eyebrow">Streak</p>
+            <h3><span id="streakCount">0</span> days</h3>
+            <p class="muted">Checked in daily</p>
+          </article>
+          <article class="card mini-stat">
+            <p class="eyebrow">Reminders</p>
+            <h3 id="reminderStatus">Off</h3>
+            <p class="muted">Turn them on in Settings</p>
+          </article>
+        </div>
+
+        <article class="card section-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Timeline</p>
+              <h3>Today’s blocks</h3>
+            </div>
+            <button id="jumpToTodayButton" class="ghost-btn">Jump to today</button>
+          </div>
+          <div id="todayTimeline" class="timeline"></div>
+        </article>
+
+        <article class="card section-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Quick reset</p>
+              <h3>Daily routines</h3>
+            </div>
+          </div>
+          <div id="routineGroups" class="stack"></div>
+        </article>
+      </section>
+
+      <section id="tab-plan" class="tab-panel">
+        <article class="card section-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Weekly plan</p>
+              <h3>Your full schedule</h3>
+            </div>
+            <div class="actions-row">
+              <button id="exportButton" class="ghost-btn">Export</button>
+              <button id="resetButton" class="ghost-btn danger">Reset</button>
+            </div>
+          </div>
+          <div id="weeklyPlanner" class="weekly-planner"></div>
+        </article>
+
+        <article class="card section-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Add a block</p>
+              <h3>Work, gym, care, meals</h3>
+            </div>
+          </div>
+          <form id="quickAddForm" class="form-grid">
+            <label>
+              <span>Day</span>
+              <select name="day"></select>
+            </label>
+            <label>
+              <span>Title</span>
+              <input name="title" required placeholder="Work shift" />
+            </label>
+            <label>
+              <span>Start</span>
+              <input type="time" name="start" required />
+            </label>
+            <label>
+              <span>End</span>
+              <input type="time" name="end" required />
+            </label>
+            <label>
+              <span>Category</span>
+              <select name="category">
+                <option value="work">Work</option>
+                <option value="gym">Gym</option>
+                <option value="care">Care</option>
+                <option value="meal">Meal</option>
+                <option value="errand">Errand</option>
+              </select>
+            </label>
+            <button type="submit" class="primary-btn">Add block</button>
+          </form>
+        </article>
+      </section>
+
+      <section id="tab-life" class="tab-panel">
+        <article class="card section-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Shopping + cooking</p>
+              <h3>Household rhythm</h3>
+            </div>
+          </div>
+          <div id="householdBlocks" class="stack"></div>
+        </article>
+      </section>
+
+      <section id="tab-settings" class="tab-panel">
+        <article class="card section-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Reminder center</p>
+              <h3>Notifications + prep buffer</h3>
+            </div>
+          </div>
+          <div class="settings-stack">
+            <button id="enableNotificationsButton" class="primary-btn">Enable notifications</button>
+            <label class="switch-row">
+              <div>
+                <strong>Event reminders</strong>
+                <p class="muted">Get alerted before upcoming blocks while the app is open.</p>
+              </div>
+              <input id="eventReminderToggle" type="checkbox" />
+            </label>
+            <label>
+              <span>Minutes before each block</span>
+              <select id="reminderLeadMinutes">
+                <option value="5">5 minutes</option>
+                <option value="10">10 minutes</option>
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+              </select>
+            </label>
+            <label>
+              <span>Morning routine reminder</span>
+              <input id="morningReminderTime" type="time" value="08:00" />
+            </label>
+            <label>
+              <span>Night routine reminder</span>
+              <input id="nightReminderTime" type="time" value="21:15" />
+            </label>
+            <button id="saveReminderSettingsButton" class="primary-btn secondary">Save reminder settings</button>
+            <p class="muted small">For GitHub Pages and iPhone home-screen use, browser notifications are the most reliable option available without building a native App Store app.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <nav class="bottom-nav card glass">
+      <button class="nav-btn active" data-tab="today">Today</button>
+      <button class="nav-btn" data-tab="plan">Plan</button>
+      <button class="nav-btn" data-tab="life">Life</button>
+      <button class="nav-btn" data-tab="settings">Settings</button>
+    </nav>
+  </div>
+
+  <dialog id="editDialog" class="edit-dialog">
+    <form id="editForm" method="dialog" class="card dialog-card">
+      <h3>Edit block</h3>
+      <label><span>Title</span><input name="title" required /></label>
+      <label><span>Start</span><input type="time" name="start" required /></label>
+      <label><span>End</span><input type="time" name="end" required /></label>
+      <label><span>Notes</span><textarea name="notes" rows="4"></textarea></label>
+      <div class="dialog-actions">
+        <button type="button" id="deleteBlockButton" class="ghost-btn danger">Delete</button>
+        <button type="submit" class="primary-btn">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
